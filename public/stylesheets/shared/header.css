@@ -1,0 +1,73 @@
+:root {
+    --nav-title-font-size: 2.5rem;
+    --nav-title-font-weight: bold;
+}
+
+.body {
+    background-color: #0B3298;
+    margin: 0;
+}
+
+.navBar {
+    display: flex;
+    align-items: center;
+    height: 9vh;
+    width: 100vw;
+    background-color: #071A4B;
+}
+
+.navLogoContainer {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.navLogo {
+    width: 11rem;
+    
+    margin: 0 0 0 1rem;
+}
+
+.titleContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    margin: 0;
+    font-size: 3em;
+    color: yellowgreen;
+}
+
+.titleLink {
+    text-decoration: none;
+}
+
+.accountContainer {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.account {
+    margin: 0 1em 0 0;
+    border: .1em solid yellowgreen;
+    border-radius: .5em;
+    padding: .2em;
+
+    font-size: 1.3em;
+    color: yellowgreen;
+
+    background-color: #4D5D86;
+}
+
+.account:hover {
+    background-color: #333E58;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+

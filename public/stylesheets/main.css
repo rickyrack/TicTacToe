@@ -1,0 +1,19 @@
+@import 'shared/variables.css';
+@import 'shared/header.css';
+
+:root {
+    font-size:20px;
+    color: var(--color-text);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--color-background);
+}
+
+.container {
+    margin: 0;
+}
