@@ -1,19 +1,9 @@
-@import 'shared/variables.css';
-@import 'shared/header.css';
-
-:root {
-    font-size:20px;
-    color: var(--color-text);
-}
-
-*, *::before, *::after {
-    box-sizing: border-box;
-}
+@import 'shared/navbar.css';
+@import 'views/index.css';
+@import 'views/register.css';
+@import 'views/login.css';
 
 body {
-    background: var(--color-background);
-}
-
-.container {
+    background-color: #0B3298;
     margin: 0;
 }

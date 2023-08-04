@@ -1,0 +1,59 @@
+main .login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h2 {
+    margin: 3.5rem 0 2.8rem 0;
+    
+    font-size: 2.6em;
+    color: yellowgreen;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login label {
+    font-size: 1.8em;
+    color: yellowgreen;
+    padding: 0;
+    margin: 0;
+}
+
+.login .loginInput {
+    height: 2.1rem;
+    width: 14.6rem;
+
+    border: .2rem solid yellowgreen;
+    border-radius: 1.2rem;
+
+    font-size: 1.2em;
+
+    padding: 0 1rem 0 1rem;
+    margin: 0;
+}
+
+.login .loginSubmit {
+    height: 2.1rem;
+    width: 16.6rem;
+
+    border: .2rem solid yellowgreen;
+    border-radius: 1.2rem;
+
+    font-size: 1.4em;
+    font-weight: bold;
+
+    margin: 2.2rem 0 0 0;
+
+    background-color: yellowgreen;
+}
+
+.login .loginSubmit:hover {
+    border: .2rem solid rgb(48, 168, 0);
+    background-color: rgb(48, 168, 0);
+}
