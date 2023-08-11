@@ -1,11 +1,11 @@
-main .login {
+main.login {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-h2 {
+.login h2 {
     margin: 3.5rem 0 2.8rem 0;
     
     font-size: 2.6em;
@@ -14,8 +14,9 @@ h2 {
 
 .login {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .login label {
@@ -56,4 +57,13 @@ h2 {
 .login .loginSubmit:hover {
     border: .2rem solid rgb(48, 168, 0);
     background-color: rgb(48, 168, 0);
+}
+
+.login .userErrorMsg {
+    margin: 1rem 0 0 0;
+    height: 1.3rem;
+
+    color: yellowgreen;
+    font-weight: bold;
+    font-size: 1.4rem;
 }

@@ -1,3 +1,11 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<%- include("partials/head.ejs") %>
+
+<%- include("partials/navbar.ejs") %>
+
+<main class="error">
+    <h2><%= message %></h2>
+    <h2><%= error.status %> :&#40</h2>
+    <pre><%= error.stack %></pre>
+</main>
+
+<%- include("partials/footer.ejs") %>

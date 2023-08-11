@@ -1,11 +1,11 @@
-main .register {
+main.register {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-h2 {
+.register h2 {
     margin: 3.5rem 0 2.8rem 0;
     
     font-size: 2.6em;
@@ -14,8 +14,9 @@ h2 {
 
 .register {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .register label {
@@ -38,6 +39,14 @@ h2 {
     margin: 0;
 }
 
+.register .registerInput:focus {
+    outline: none;
+}
+
+.register .registerInput:focus:invalid {
+    border-color: rgb(233, 26, 26);
+}
+
 .register .registerSubmit {
     height: 2.1rem;
     width: 16.6rem;
@@ -56,4 +65,13 @@ h2 {
 .register .registerSubmit:hover {
     border: .2rem solid rgb(48, 168, 0);
     background-color: rgb(48, 168, 0);
+}
+
+.register .userErrorMsg {
+    margin: 1rem 0 0 0;
+    height: 1.3rem;
+
+    color: yellowgreen;
+    font-weight: bold;
+    font-size: 1.4rem;
 }

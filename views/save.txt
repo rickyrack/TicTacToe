@@ -1,0 +1,9 @@
+        <% if (username) { %>
+          <div class="accountContainer">
+            <a href="/user/register"><button class="account">Profile</button></a> 
+          </div>
+        <% } else { %>
+          <div class="accountContainer">
+            <a href="/user/register"><button class="account">Register/Login</button></a> 
+          </div>
+        <% } %>

@@ -53,5 +53,6 @@
 }
 
 .account:hover {
+    cursor: pointer;
     background-color: #333E58;
 }

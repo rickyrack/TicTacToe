@@ -6,11 +6,11 @@ const logger = require('morgan');
 //const expressLayouts = require('express-layouts');
 
 const indexRouter = require('./routes/index');
-const registerRouter = require('./routes/register');
-const loginRouter = require('./routes/login');
-const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
+const playRouter = require('./routes/play');
 
 const connectDB = require('./db');
+const { isAuth, isLoggedIn } = require('./middleware/auth');
 
 const port = process.env.PORT || 3000;
 
@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 //app.set('layout', 'layouts/layout');
 
 //app.use(expressLayouts);
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -30,10 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 connectDB();
 
-app.use('/', indexRouter);
-app.use('/register', registerRouter);
-app.use('/login', loginRouter);
-app.use('/users', usersRouter);
+app.use('/', isLoggedIn, indexRouter);
+app.use('/user', userRouter);
+app.use('/play', isAuth, playRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,7 +47,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', { title: 'Error' });
 });
 
 app.listen(port, () => {
