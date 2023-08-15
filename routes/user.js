@@ -4,23 +4,35 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-const { isLoggedIn } = require('../middleware/auth');
+const secret = process.env.SECRET;
 
 // GET register page
-router.get('/register', isLoggedIn, (req, res) => {
+router.get('/register', (req, res) => {
+  if (req.isLoggedIn) {
+    return res.status(403).redirect('/');
+  }
+
   res.render('register', {
     title: 'Register',
-    username: req.body?.username || undefined
+    username: req.body?.username
   });
 });
 
 // POST create user
 router.post('/register', async (req, res) => {
+  if (req.isLoggedIn) {
+    return res.status(403).redirect('/');
+  }
 
   // check if a password input is missing
   if (!req.body.password || !req.body.password2) {
     return res.status(400).render('register', { title: "Register", prevUsername: req.body.username, userMsg: 'Enter a password and confirm your password.' });
   }
+
+    // check if passwords match
+    if(req.body.password !== req.body.password2) {
+      return res.status(400).render('register', { title: "Register", prevUsername: req.body.username, userMsg: 'Passwords do not match..' });
+    }
 
   // check if username already exists
   try {
@@ -30,11 +42,6 @@ router.post('/register', async (req, res) => {
     }
   } catch (err) {
     return res.status(500).json({ err });
-  }
-
-  // check if passwords match
-  if(req.body.password !== req.body.password2) {
-    return res.status(400).render('register', { title: "Register", prevUsername: req.body.username, userMsg: 'Passwords do not match..' });
   }
 
   // create new user
@@ -52,23 +59,31 @@ router.post('/register', async (req, res) => {
 
 // GET login page
 router.get('/login', (req, res) => {
+  if (req.isLoggedIn) {
+    return res.status(403).redirect('/');
+  }
+
   res.render('login', {
     title: 'Login',
-    username: req.body?.username || undefined
+    username: req.body?.username
   });
 });
 
 // POST login user
 router.post('/login', async (req, res) => {
+  if (req.isLoggedIn) {
+    return res.status(403).redirect('/');
+  }
+
   if (!req.body.username || !req.body.password) {
-    res.status(400).render('login', { title: 'Login', userMsg: 'Username or password incorrect.'});
+    return res.status(400).render('login', { title: 'Login', userMsg: 'Username or password incorrect.'});
   }
   try {
     const user = await User.findOne({ username: req.body.username });
     if (user) {
       const passSuccess = await bcrypt.compare(req.body.password, user.password);
       if (passSuccess) {
-        const token = await jwt.sign({ username: user.username }, process.env.SECRET, { expiresIn: '1h' });
+        const token = await jwt.sign({ username: user.username }, secret, { expiresIn: '1h' });
         res.cookie('jwt', token, { httpOnly: true })
         res.redirect('/play');
       } else {
@@ -78,7 +93,7 @@ router.post('/login', async (req, res) => {
       res.status(400).render('login', { title: 'Login', userMsg: 'Username incorrect.'});
     }
   } catch (err) {
-    
+    res.status(500).json({ err })
   }
 });
 

@@ -1,8 +1,6 @@
 <%- include("partials/head.ejs") %>
 
-<%- include("partials/navbar.ejs") %>
-
-<% 
+<%
 let usernameValue = '';
 if (typeof prevUsername !== 'undefined') {
   usernameValue = prevUsername;
@@ -19,9 +17,9 @@ if (typeof userMsg === 'undefined') {
       <label for="username">Username:</label><br>
       <input type="text" id="username" class="registerInput" name="username" value="<%- usernameValue %>" required minlength="3"><br>
       <label for="password">Password:</label><br>
-      <input type="password" id="password" class="registerInput" name="password" required minlength="6" value="password"><br>
+      <input type="password" id="password" class="registerInput" name="password" required minlength="6"><br>
       <label for="password2">Confirm Password:</label><br>
-      <input type="password" id="password2" class="registerInput" name="password2" required minlength="6" value="password2">
+      <input type="password" id="password2" class="registerInput" name="password2" required minlength="6">
       <input type="submit" class="registerSubmit">
     </form>
     <div class="userErrorMsg">
