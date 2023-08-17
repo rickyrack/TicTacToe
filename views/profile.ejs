@@ -3,8 +3,14 @@
 <%- include("partials/navbar.ejs") %>
 
 <!-- Profile -->
-<main class="profile">
-    <h2>PROFILE PAGE AUTH PROTECTED</h2>
+<main class="profile-main">
+    <h2 class="profile-header">Profile</h2>
+    <ul class="profile-stats">
+        <li>Username: <%- username %></li>
+        <li>Games Played: <%- games %></li>
+        <li>Wins: <%- win %></li>
+        <li>Losses: <%- loss %></li>
+    </ul>
 </main>
 
 <%- include("partials/footer.ejs") %>

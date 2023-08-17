@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     res.render('play', {
         title: 'Play',
-        username: req.body?.username
+        username: req.body.username
     });
 });
 

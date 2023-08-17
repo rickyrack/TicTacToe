@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const secret = process.env.SECRET;
 
 // allows a user to go to an authorized route or not
@@ -39,7 +40,8 @@ const isLoggedIn = async (req, res, next) => {
             next();
         }
     } catch (err) {
-        req.isLoggedIn = false;
+        //delete jwt cookie if expired
+        if(req?.cookies?.jwt) res.clearCookie('jwt');
         res.status(401).redirect('/user/login');
     }
 }

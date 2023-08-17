@@ -3,6 +3,8 @@
 @import 'views/register.css';
 @import 'views/login.css';
 @import 'views/error.css';
+@import 'views/profile.css';
+@import 'views/play.css';
 
 body {
     background-color: #0B3298;

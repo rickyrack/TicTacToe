@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const colors = require('colors');
-const dotenv = require('dotenv').config()
+require('dotenv').config()
 
 const uri = process.env.MONGO_URI;
 
