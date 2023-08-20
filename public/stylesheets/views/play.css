@@ -1,8 +1,10 @@
 .play-main {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 80%;
 }
 
 #play-canvas {
@@ -10,6 +12,7 @@
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 2;
     max-width: 100%;
     max-height: 100%;
 
@@ -17,4 +20,172 @@
     border-radius: .4rem;
 
     background-color: whitesmoke;
+
+    cursor: pointer;
+}
+
+.canvas-blur-animation {
+    animation: end-canvas-animation .7s;
+    animation-fill-mode: both;
+}
+
+@keyframes end-canvas-animation {
+    to {
+        filter: blur(.07rem);
+    }
+}
+
+.play-gameOver {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    font-size: 4.6rem;
+    font-weight: bold;
+    color: #071A4B;
+
+    pointer-events: none;
+}
+
+.game-over-fade-in {
+    animation: game-over-animation .7s;
+    animation-fill-mode: both;
+}
+
+@keyframes game-over-animation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
+.play-lobby-buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    position: relative;
+    top: 2.5rem;
+    z-index: 1;
+
+    width: 19rem;
+    height: 100%;
+}
+
+.play-lobby-buttons p {
+    text-align: center;
+    margin: 0;
+    margin-top: -.2rem;
+    margin-bottom: .2rem;
+
+    font-size: 1.8rem;
+    color: yellowgreen;
+
+    width: 100%;
+}
+
+.play-lobby-buttons button {
+    height: 3rem;
+    width: 9rem;
+
+    border: .01rem solid black;
+    border-radius: .3rem;
+    padding: 0;
+    
+    font-size: 1.2rem;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+
+    color: rgb(148, 216, 11);
+
+    background-color: #4D5D86;
+}
+
+.play-lobby-buttons button:hover {
+    cursor: pointer;
+    background-color: #333E58;
+}
+
+.play-bot-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+
+    position: relative;
+    top: -11.5rem;
+
+    height: 10%;
+    width: 19rem;
+}
+
+.play-bot-buttons p {
+    margin: 0;
+
+    font-size: 1.3rem;
+
+    color: yellowgreen;
+}
+
+.play-bot-buttons button {
+    z-index: 2;
+
+    height: 1.5rem;
+    width: 9rem;
+
+    border: .01rem solid black;
+    border-radius: .3rem;
+    padding: 0;
+    
+    font-size: 1rem;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+
+    color: rgb(148, 216, 11);
+
+    background-color: #4D5D86;
+}
+
+.play-bot-buttons button:hover {
+    cursor: pointer;
+    background-color: #333E58;
+}
+
+.play-basic {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: relative;
+    top: 9rem;
+
+    height: 100%;
+    width: 19rem;
+}
+
+.play-basic button {
+    height: 3rem;
+    width: 9rem;
+
+    border: .01rem solid black;
+    border-radius: .3rem;
+    padding: 0;
+    
+    font-size: 1.4rem;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+
+    color: rgb(148, 216, 11);
+
+    background-color: #4D5D86;
+}
+
+.play-basic button:hover {
+    cursor: pointer;
+    background-color: #333E58;
 }

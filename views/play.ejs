@@ -5,8 +5,23 @@
 <!-- Play -->
 <main class="play-main">
   <canvas id="play-canvas"></canvas>
+  <div class="play-gameOver"></div>
+  <div class="play-lobby-buttons">
+    <p>Play Multiplayer</p>
+    <button class="play-create-lobby">Create Lobby</button>
+    <button class="play-join-lobby">Join Lobby</button>
+  </div>
+  <div class="play-bot-buttons">
+    <p>Computer:</p>
+    <button class="play-bot-dif">Medium</button>
+  </div>
+  <div class="play-basic">
+    <button class="play-new-game">New Game</button>
+    <button class="play-howtoplay">How To Play</button>
+  </div>
 </main>
 
 <script type="module" src="/scripts/tictactoe/main.js"></script>
+<script type="module" src="/scripts/tictactoe/play_controls/new_game.js"></script>
 
 <%- include("partials/footer.ejs") %>

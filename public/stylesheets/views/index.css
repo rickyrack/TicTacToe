@@ -14,7 +14,7 @@ main.home {
     align-items: center;
 
     width: 20rem;
-    height: 5.8rem;
+    height: 6rem;
 
     border: .1rem solid;
     border-radius: 4rem;
@@ -22,9 +22,8 @@ main.home {
     text-decoration: none;
     color: black;
     font-size: 5rem;
-    font-weight: 600;
+    font-weight: 700;
     font-style: normal;
-    padding: 0 0 .2rem 0;
 
     background-color: yellowgreen;
 }
