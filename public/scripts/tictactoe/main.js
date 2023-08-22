@@ -1,5 +1,6 @@
 import { gameOver } from "./game_over.js";
-import { getBotMove } from "./helper/get_bot_move.js";
+import { getBotMove } from "./helper/bot_move/get_bot_move.js";
+import { mainCheck } from "./helper/main_check.js";
 
 window.addEventListener("load", () => {
   newGame();
@@ -21,8 +22,8 @@ export const newGame = () => {
   const boardSize = 3;
 
   let nextPiece = "x";
-  let col = undefined;
-  let row = undefined;
+  let col = null;
+  let row = null;
 
   const board = [];
 
@@ -54,7 +55,6 @@ export const newGame = () => {
   canvas.addEventListener("click", handleClick);
 
   const game = () => {
-    getBotMove(board);
     // draw board
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -72,93 +72,42 @@ export const newGame = () => {
 
     // bot move
     let noMoveCounter = 0;
+    // realBoard fixes bug where an old/fault board is being pass as the board
+    // initially the correct board is saved so it will set the "broken" board back to that board
+    const realBoard = board;
     if (!firstTurn) {
+      if(board !== realBoard) board = realBoard;
       botTurn();
     }
     firstTurn = false;
     function botTurn() {
-      const botRow = Math.floor(Math.random() * 3);
+      const botMoveData = getBotMove(board);
+      console.log(botMoveData)
+      board[botMoveData.row][botMoveData.col] = 'o';
+      pieceDrawOrder.push({ row: botMoveData.row, col: botMoveData.col})
+      nextPiece = 'x';
+      // randomly select tile to place bot piece
+      /*const botRow = Math.floor(Math.random() * 3);
       const botCol = Math.floor(Math.random() * 3);
 
       if (board[botRow][botCol] === "") {
         board[botRow][botCol] = "o";
         pieceDrawOrder.push({ row: botRow, col: botCol });
         nextPiece = "x";
+        // for testing -> getBotMove(board);
       } else {
         if (noMoveCounter === 1000) return;
         noMoveCounter++;
         botTurn();
-      }
+      }*/
     }
-
-    /*for (let boardRow = 0; boardRow < boardSize; boardRow++) {
-            for (let boardCol = 0; boardCol < boardSize; boardCol++) {
-                if(board[boardRow][boardCol] === 'x') {
-                    ctx.drawImage(piece_x, boardCol * tileSize, boardRow * tileSize, tileSize, tileSize);
-                }
-                else if(board[boardRow][boardCol] === 'o') {
-                    ctx.drawImage(piece_o, boardCol * tileSize, boardRow * tileSize, tileSize, tileSize);
-                }
-            }
-        }*/
-
-    let p1Check = 0;
-    let p2Check = 0;
 
     let p1Win = false;
     let p2Win = false;
 
-    for (let i = 0; i < boardSize; i++) {
-      for (let j = 0; j < boardSize; j++) {
-        // row win check
-        if (board[i][j] === "x") p1Check++;
-        if (board[i][j] === "o") p2Check++;
-      }
+    if(mainCheck(board) === 'p1Win') p1Win = true;
+    else if(mainCheck(board) === 'p2Win') p2Win = true;
 
-      if (p1Check === 3) p1Win = true;
-      if (p2Check === 3) p2Win = true;
-      if (p1Win || p2Win) break;
-      p1Check = 0;
-      p2Check = 0;
-
-      for (let j = 0; j < boardSize; j++) {
-        // column win check
-        if (board[j][i] === "x") p1Check++;
-        if (board[j][i] === "o") p2Check++;
-      }
-
-      if (p1Check === 3) p1Win = true;
-      if (p2Check === 3) p2Win = true;
-      if (p1Win || p2Win) break;
-      p1Check = 0;
-      p2Check = 0;
-
-      for (let i = 0; i < boardSize; i++) {
-        // diagnol left to right win check
-        if (board[i][i] === "x") p1Check++;
-        if (board[i][i] === "o") p2Check++;
-      }
-
-      if (p1Check === 3) p1Win = true;
-      if (p2Check === 3) p2Win = true;
-      if (p1Win || p2Win) break;
-      p1Check = 0;
-      p2Check = 0;
-
-      // diagnol right to left win check
-      if (board[0][2] === "x") p1Check++;
-      if (board[1][1] === "x") p1Check++;
-      if (board[2][0] === "x") p1Check++;
-      if (board[0][2] === "o") p2Check++;
-      if (board[1][1] === "o") p2Check++;
-      if (board[2][0] === "o") p2Check++;
-
-      if (p1Check === 3) p1Win = true;
-      if (p2Check === 3) p2Win = true;
-      if (p1Win || p2Win) break;
-      p1Check = 0;
-      p2Check = 0;
-    }
     if (p1Win) {
       canvas.removeEventListener("click", handleClick);
       gameActive = false;
