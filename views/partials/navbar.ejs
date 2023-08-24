@@ -1,20 +1,20 @@
 <header>
-    <nav class="navBar">
-        <div class="navLogoContainer">
-          <img class="navLogo" src="/images/Logo.png" alt="Tic Tac Taco!">
+  <nav class="navBar">
+      <div class="navLogoContainer">
+        <img class="navLogo" src="/images/Logo.png" alt="Tic Tac Taco!">
+      </div>
+      <div class="titleContainer">
+        <a href="/" class="titleLink"><h1 class="title">Tic Tac Toe!</h1></a>
+      </div>
+      <%
+      if (username) { %>
+        <div class="accountContainer">
+          <a href="/profile"><button class="account">Profile</button></a>
         </div>
-        <div class="titleContainer">
-          <a href="/" class="titleLink"><h1 class="title">Tic Tac Toe!</h1></a>
+      <% } else { %>
+        <div class="accountContainer">
+          <a href="/user/login"><button class="account">Login</button></a>
         </div>
-        <%
-        if (username) { %>
-          <div class="accountContainer">
-            <a href="/profile"><button class="account">Profile</button></a> 
-          </div>
-        <% } else { %>
-          <div class="accountContainer">
-            <a href="/user/login"><button class="account">Login</button></a> 
-          </div>
-        <% } %>
-      </nav>
+      <% } %>
+    </nav>
 </header>

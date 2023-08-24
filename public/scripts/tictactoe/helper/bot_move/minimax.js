@@ -33,7 +33,7 @@ export const minimax = (currBoard, piece) => {
 
     let bestTestPlay = null;
 
-    if (piece = botPiece) {
+    if (piece === botPiece) {
         let bestScore = -Infinity;
         for (let i = 0; i < testPlayData.length; i++) {
             if (testPlayData[i].score > bestScore) {

@@ -22,5 +22,7 @@ export const getBotMove = (gameBoard) => {
     }
 
     const botMoveData = minimax(board, 'o');
+    console.log(botMoveData);
+    if (botMoveData?.tile === undefined) return botMoveData;
     return convertBotMove(botMoveData);
 }

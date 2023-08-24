@@ -82,10 +82,14 @@ export const newGame = () => {
     firstTurn = false;
     function botTurn() {
       const botMoveData = getBotMove(board);
-      console.log(botMoveData)
+      // player win check
+      if (botMoveData.score === -1 || botMoveData.score === 0) {
+        return;
+      }
       board[botMoveData.row][botMoveData.col] = 'o';
-      pieceDrawOrder.push({ row: botMoveData.row, col: botMoveData.col})
+      pieceDrawOrder.push({ row: botMoveData.row, col: botMoveData.col});
       nextPiece = 'x';
+      console.log(board)
       // randomly select tile to place bot piece
       /*const botRow = Math.floor(Math.random() * 3);
       const botCol = Math.floor(Math.random() * 3);

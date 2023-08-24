@@ -21,19 +21,19 @@ export const winCheck = (gameBoard, piece) => {
     ];
 
     winningConditions.forEach(cond => {
-      for (let i = 0; i < cond.length; i++) {
-        if (board[cond[i]] === 'x' || board[cond[i]] === 'o') cond[i] = board[cond[i]];
+      const checkCond = [...cond];
+      for (let i = 0; i < checkCond.length; i++) {
+        if (board[checkCond[i]] === 'x' || board[checkCond[i]] === 'o') checkCond[i] = board[checkCond[i]];
       }
 
-      const checkCond = [...cond];
-      for (let i = 0; i < cond.length; i++) {
+      /*for (let i = 0; i < cond.length; i++) {
         if (checkCond[i] !== 'x' && checkCond[i] !== 'o') {
           checkCond[i] = piece;
           break;
         }
-      }
+      }*/
 
-      if (checkCond[0] === checkCond[1] && checkCond[1] === checkCond[2]) {
+      if (checkCond[0] === checkCond[1] && checkCond[1] === checkCond[2] && checkCond[2] === piece) {
         isWin = true;
       }
     })
