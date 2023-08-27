@@ -1,6 +1,7 @@
 import { gameOver } from "./game_over.js";
 import { getBotMove } from "./helper/bot_move/get_bot_move.js";
 import { mainCheck } from "./helper/main_check.js";
+import { getDiff } from "./play_controls/computer_diff.js";
 
 window.addEventListener("load", () => {
   newGame();
@@ -31,16 +32,7 @@ export const newGame = () => {
   let gameActive = true;
 
   // bot vars
-  const diffSwitch = document.querySelector(".play-bot-diff");
-  const botDefault = "Medium";
-  let botDiff = botDefault;
-  if (
-    diffSwitch.textContent === "Easy" ||
-    diffSwitch.textContent === "Medium" ||
-    diffSwitch.textContent === "Hard"
-  ) {
-    botDiff = diffSwitch.textContent;
-  }
+  const botDiff = getDiff();
 
   let botDelay = false;
   let firstTurn = true;
@@ -72,16 +64,13 @@ export const newGame = () => {
 
     // bot move
     let noMoveCounter = 0;
-    // realBoard fixes bug where an old/fault board is being pass as the board
-    // initially the correct board is saved so it will set the "broken" board back to that board
-    const realBoard = board;
     if (!firstTurn) {
-      if(board !== realBoard) board = realBoard;
+      //if(board !== realBoard) board = realBoard;
       botTurn();
     }
     firstTurn = false;
     function botTurn() {
-      const botMoveData = getBotMove(board);
+      const botMoveData = getBotMove(board, botDiff);
       // player win check
       if (botMoveData.score === -1 || botMoveData.score === 0) {
         return;

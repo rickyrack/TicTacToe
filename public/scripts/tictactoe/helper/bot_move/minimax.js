@@ -4,6 +4,9 @@ import { winCheck } from "./win_check.js";
 const playerPiece = 'x';
 const botPiece = 'o';
 
+// this is used for difficulty changing
+let finalTestPlayData = [];
+
 export const minimax = (currBoard, piece) => {
     const openTiles = getEmptyTiles(currBoard);
 
@@ -52,5 +55,10 @@ export const minimax = (currBoard, piece) => {
         }
     }
 
+    finalTestPlayData = testPlayData;
     return testPlayData[bestTestPlay];
+}
+
+export function getFinalTestData() {
+    return finalTestPlayData;
 }
