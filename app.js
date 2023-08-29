@@ -10,9 +10,11 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const playRouter = require('./routes/play');
 const profileRouter = require('./routes/profile');
+const leaderboardRouter = require('./routes/leaderboard');
 
 const connectDB = require('./db');
 const { isAuth, isLoggedIn } = require('./middleware/auth');
+const connectSocket = require('./socketio');
 
 const port = process.env.PORT || 3000;
 
@@ -31,11 +33,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')))
 
 connectDB();
+connectSocket();
 
 app.use('/', isLoggedIn, indexRouter);
 app.use('/user', isLoggedIn, userRouter);
 app.use('/play', isAuth, playRouter);
 app.use('/profile', isAuth, profileRouter)
+app.use('/leaderboard', isLoggedIn, leaderboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

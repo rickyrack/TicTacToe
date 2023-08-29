@@ -21,7 +21,6 @@ export const getBotMove = (gameBoard, botDiff) => {
         }
     }
 
-    console.log(botDiff)
     if(botDiff === "Easy") {
         const botMoveData = minimax(board, 'x');
         const finalTestPlayData = getFinalTestData();
@@ -32,7 +31,6 @@ export const getBotMove = (gameBoard, botDiff) => {
         // this code is the same as hard diff for right now
         const botMoveData = minimax(board, 'o');
         const finalTestPlayData = getFinalTestData();
-        console.log(finalTestPlayData);
         if (botMoveData?.tile === undefined) return botMoveData;
         let testPlay = undefined;
         finalTestPlayData.forEach(test => {
@@ -42,7 +40,6 @@ export const getBotMove = (gameBoard, botDiff) => {
             }
         });
         if (!testPlay) testPlay = finalTestPlayData.find(test => test.score === -1);
-        console.log(testPlay)
         return convertBotMove(testPlay);
     }
     else {

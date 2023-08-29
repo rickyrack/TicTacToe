@@ -6,15 +6,15 @@
       <div class="titleContainer">
         <a href="/" class="titleLink"><h1 class="title">Tic Tac Toe!</h1></a>
       </div>
-      <%
-      if (username) { %>
-        <div class="accountContainer">
-          <a href="/profile"><button class="account">Profile</button></a>
-        </div>
+      <div class="accountContainer">
+      <a href="/" class="account">Home</a>
+      <a href="/leaderboard" class="account">Top</a>
+      <a href="/play" class="account">Play</a>
+      <% if (username) { %>
+          <a href="/profile" class="account">Profile</a>
       <% } else { %>
-        <div class="accountContainer">
-          <a href="/user/login"><button class="account">Login</button></a>
-        </div>
+          <a href="/user/login" class="account">Login</a>
       <% } %>
+    </div>
     </nav>
 </header>

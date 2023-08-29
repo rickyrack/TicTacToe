@@ -7,9 +7,18 @@
   <canvas id="play-canvas"></canvas>
   <div class="play-gameOver"></div>
   <div class="play-lobby-buttons">
-    <p>Play Multiplayer</p>
-    <button class="play-create-lobby">Create Lobby</button>
-    <button class="play-join-lobby">Join Lobby</button>
+    <p class="play-lobby-title">Play Multiplayer</p>
+    <button class="play-create-lobby lobby-button">Create Lobby</button>
+    <button class="play-join-lobby lobby-button">Join Lobby</button>
+    <p class="play-create-lobby-text">Room: 12345678&nbsp<button class="play-create-lobby-copy"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg></button></p>
+    <form class="play-join-lobby-form" action="">
+      <label class="play-join-lobby-label" for="roomId">Room:&nbsp</label>
+      <input class="play-join-lobby-input" type="text" id="roomId" placeholder="Room Code">
+      <input class="play-join-lobby-submit" type="submit" value=""><svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30" fill="yellowgreen" style="transition: transform 0.3s" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg></input>
+    </form>
+    <div class="play-lobby-back-div">
+      <button class="play-lobby-back-button">Back</button>
+    </div>
   </div>
   <div class="play-bot-buttons">
     <p>Computer:</p>
@@ -24,5 +33,6 @@
 <script type="module" src="/scripts/tictactoe/main.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/new_game.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/computer_diff.js"></script>
+<script type="module" src="/scripts/tictactoe/play_controls/lobby_controls.js"></script>
 
 <%- include("partials/footer.ejs") %>

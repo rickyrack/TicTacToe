@@ -1,0 +1,26 @@
+<%- include("partials/head.ejs") %>
+
+<%- include("partials/navbar.ejs") %>
+
+<% if(username) {
+
+} %>
+
+<main class="lb-main">
+    <section class="lb-middle">
+        <h2 class="lb-heading">Leaderboard</h2>
+        <ul class="lb-leaderboard">
+            <% for (let i = 0; i < 3; i++) { %>
+                <li><span class="li-number"><%- i %></span>test</li>
+            <% } %>
+        </ul>
+        <div class="lb-page-buttons">
+            <button><</button>
+            <button>></button>
+        </div>
+    </section>
+
+
+</main>
+
+<%- include("partials/footer.ejs") %>

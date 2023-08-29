@@ -1,3 +1,5 @@
+//checks for a win in the game function itself, separate from minimax win check
+
 export const mainCheck = (board) => {
     let boardSize = board.length;
 

@@ -78,7 +78,6 @@ export const newGame = () => {
       board[botMoveData.row][botMoveData.col] = 'o';
       pieceDrawOrder.push({ row: botMoveData.row, col: botMoveData.col});
       nextPiece = 'x';
-      console.log(board)
       // randomly select tile to place bot piece
       /*const botRow = Math.floor(Math.random() * 3);
       const botCol = Math.floor(Math.random() * 3);
