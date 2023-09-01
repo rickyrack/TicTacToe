@@ -13,8 +13,8 @@ const profileRouter = require('./routes/profile');
 const leaderboardRouter = require('./routes/leaderboard');
 
 const connectDB = require('./db');
+const gameSocket = require('./socket/onlineGame');
 const { isAuth, isLoggedIn } = require('./middleware/auth');
-const connectSocket = require('./socketio');
 
 const port = process.env.PORT || 3000;
 
@@ -31,9 +31,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')))
-
-connectDB();
-connectSocket();
 
 app.use('/', isLoggedIn, indexRouter);
 app.use('/user', isLoggedIn, userRouter);
@@ -57,8 +54,9 @@ app.use(function(err, req, res, next) {
   res.render('error', { title: 'Error' });
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server started on port ${port}`.magenta)
-})
+});
 
-module.exports = app;
+connectDB();
+gameSocket(server);
