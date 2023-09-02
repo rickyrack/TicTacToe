@@ -1,8 +1,8 @@
 export const gameOver = (winner) => {
   const endGameDiv = document.querySelector(".play-gameOver");
-  const canvasDiv = document.getElementById("play-canvas");
+  const canvas = document.getElementById("play-canvas");
 
-  canvasDiv.classList.add('canvas-blur-animation');
+  canvas.classList.add('canvas-blur-animation');
   endGameDiv.classList.add('game-over-fade-in');
 
   endGameDiv.innerHTML = `<p>${

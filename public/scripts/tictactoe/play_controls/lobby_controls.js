@@ -1,4 +1,5 @@
 import { joinRoom } from "../online/gameController.js";
+import { handleNewGame } from "./new_game.js";
 
 const lobbyCreateButton = document.querySelector(".play-create-lobby");
 const lobbyJoinButton = document.querySelector(".play-join-lobby");
@@ -9,7 +10,12 @@ const lobbyJoinInput = document.querySelector(".play-join-lobby-input");
 const lobbyJoinSubmit = document.querySelector(".play-join-lobby-submit");
 const lobbyBackButton = document.querySelector(".play-lobby-back-button");
 const lobbyOppDiv = document.querySelector(".play-lobby-opp");
+const lobbyOppDivText = lobbyOppDiv.querySelector("p");
 const botDiffDiv = document.querySelector(".play-bot-buttons");
+const basicButtonsDiv = document.querySelector(".play-basic");
+
+// does not exist until createLobby runs
+let lobbyCopyButton;
 
 lobbyCreateText.style.display = "none";
 lobbyJoinForm.style.display = "none";
@@ -27,6 +33,9 @@ const lobbyButtonHandler = () => {
     lobbyBackButton.style.display = "block";
     botDiffDiv.style.display = "none";
     lobbyOppDiv.style.display = "flex";
+    basicButtonsDiv.style.display = "none";
+
+    handleNewGame(true);
 }
 
 function createLobby() {
@@ -37,16 +46,23 @@ function createLobby() {
     const roomId = uid();
     joinRoom(roomId, 'create');
 
-    lobbyCreateText.innerHTML = `
-    <p>Room: ${roomId}&nbsp</p>
+    lobbyCreateText.innerHTML = 
+    `<p>Room: ${roomId}&nbsp</p>
     <button class="play-create-lobby-copy">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="lightgrey"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
     </button>`;
+    lobbyCopyButton = document.querySelector(".play-create-lobby-copy");
+    lobbyCopyButton.addEventListener("click", copyRoomId);
+
+    lobbyOppDivText.textContent = "Waiting for player";
+    lobbyOppDivText.classList.add("lobby-loading");
 }
 
 function joinLobby() {
     lobbyButtonHandler();
     lobbyJoinForm.style.display = "flex";
+
+    lobbyOppDivText.textContent = "Join a lobby!";
 }
 
 function backLobby() {
@@ -57,9 +73,21 @@ function backLobby() {
     botDiffDiv.style.display = "flex";
     lobbyOppDiv.style.display = "none";
     lobbyBackButton.style.display = "none";
+    basicButtonsDiv.style.display = "flex";
+
+    lobbyCopyButton = undefined;
 
     lobbyJoinInput.value = "";
-    lobbyOppDiv.innerHTML = "<p></p>";
+    lobbyOppDivText.textContent = "";
+    lobbyOppDivText.classList.remove("lobby-loading");
+
+    handleNewGame(false);
+}
+
+function copyRoomId() {
+    lobbyOppDivText.classList.remove("lobby-loading");
+    navigator.clipboard.writeText(lobbyCreateText.innerText.split(': ')[1].slice(0, 6));
+    lobbyOppDivText.textContent = "Copied!";
 }
 
 function handleSubmit(e) {
@@ -68,13 +96,11 @@ function handleSubmit(e) {
     joinRoom(joinId, 'join');
 }
 
-export function noRoomExists(reason) {
+export function badRoom(reason) {
     if(reason === 'room full') {
-        console.log('erm')
-        lobbyOppDiv.innerHTML = "<p>Room is full!</p>";
+        lobbyOppDivText.textContent = "Lobby is full!";
     }
     else {
-        lobbyOppDiv.innerHTML = "<p>Invalid Room Code!</p>";
+        lobbyOppDivText.textContent = "Invalid Lobby Code!";
     }
-
 }

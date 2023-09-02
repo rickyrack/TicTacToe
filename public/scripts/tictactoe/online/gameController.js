@@ -1,16 +1,29 @@
+import { badRoom } from "../play_controls/lobby_controls.js";
+import { game } from "./main.js";
+
 const socket = io();
-import { noRoomExists } from "../play_controls/lobby_controls.js";
 
 // Room stuff
 export const joinRoom = (roomId, action) => {
     socket.emit('joinRoom', { roomId: roomId, action: action });
 }
 
-socket.on('noRoomExists', (reason) => {
-    noRoomExists(reason)
+socket.on('badRoom', (reason) => {
+    badRoom(reason);
 });
 
-// Game stuff
+// Game stuff //
+
+// init game data from joining client
+socket.on('startGame', (data) => {
+    console.log(data)
+    game(data.board, data.currPlayer);
+});
+
+export const wrongPlayer = () => {
+    socket.emit('waitForTurn');
+}
+
 export const placePiece = (piece, tile) => {
 
 }
