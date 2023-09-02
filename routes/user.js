@@ -72,7 +72,6 @@ router.get('/login', (req, res) => {
 
 // POST login user
 router.post('/login', async (req, res) => {
-  console.log('boom 2')
   if (req.isLoggedIn) {
     return res.status(403).redirect('/');
   }
@@ -81,7 +80,9 @@ router.post('/login', async (req, res) => {
     return res.status(400).render('login', { title: 'Login', userMsg: 'Username or password incorrect.'});
   }
   try {
+    console.log('look')
     const user = await User.findOne({ username: req.body.username });
+    console.log(user)
     if (user) {
       const passSuccess = await bcrypt.compare(req.body.password, user.password);
       if (passSuccess) {
@@ -95,6 +96,7 @@ router.post('/login', async (req, res) => {
       res.status(400).render('login', { title: 'Login', userMsg: 'Username incorrect.'});
     }
   } catch (err) {
+    console.log('login error')
     res.status(500).json({ err })
   }
 });
