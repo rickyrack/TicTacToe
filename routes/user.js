@@ -96,7 +96,6 @@ router.post('/login', async (req, res) => {
       res.status(400).render('login', { title: 'Login', userMsg: 'Username incorrect.'});
     }
   } catch (err) {
-    console.log('login error')
     res.status(500).json({ err })
   }
 });
