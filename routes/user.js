@@ -71,8 +71,8 @@ router.get('/login', (req, res) => {
 });
 
 // POST login user
-router.get('/login', async (req, res) => {
-  console.log('boom')
+router.post('/login', async (req, res) => {
+  console.log('boom 2')
   if (req.isLoggedIn) {
     return res.status(403).redirect('/');
   }
