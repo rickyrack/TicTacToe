@@ -20,7 +20,8 @@ router.get('/register', (req, res) => {
 });
 
 // POST create user
-router.post('/register', async (req, res) => {
+router.get('/register', async (req, res) => {
+  console.log('boom')
   if (req.isLoggedIn) {
     return res.status(403).redirect('/');
   }
