@@ -1,9 +1,11 @@
 import { badRoom } from "../play_controls/lobby_controls.js";
-import { game } from "./main.js";
+import { runGame } from "./main.js";
+import { waitForTurn } from "./updateMessage.js";
+import { socket } from "./main.js";
 
-const socket = io();
+// this file handles functions that have multiple effects
 
-// Room stuff
+// Room controller
 export const joinRoom = (roomId, action) => {
     socket.emit('joinRoom', { roomId: roomId, action: action });
 }
@@ -12,18 +14,18 @@ socket.on('badRoom', (reason) => {
     badRoom(reason);
 });
 
-// Game stuff //
-
 // init game data from joining client
-socket.on('startGame', (data) => {
-    console.log(data)
-    game(data.board, data.currPlayer);
-});
+/*socket.on('startGame', (roomData) => {
+    console.log(roomData.board)
+    runGame(roomData.board, roomData.roomId);
+});*/
 
-export const wrongPlayer = () => {
-    socket.emit('waitForTurn');
-}
+// notify player it is not their turn and run the game again
+socket.on('wrongTurn', (roomData) => {
+    waitForTurn();
+    //game(roomData.board, roomData.roomId);
+})
 
-export const placePiece = (piece, tile) => {
-
-}
+socket.on('runGame', (roomData) => {
+    runGame(roomData.board, roomData.roomId);
+})

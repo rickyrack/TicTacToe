@@ -49,6 +49,34 @@
     pointer-events: none;
 }
 
+.play-online-message {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: #071A4B;
+
+    pointer-events: none;
+}
+
+.online-msg-fade-out {
+    animation: online-msg-animation 5s;
+    animation-fill-mode: both;
+}
+
+@keyframes online-msg-animation {
+    from {
+        opacity: 100;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 .game-over-fade-in {
     animation: game-over-animation .7s;
     animation-fill-mode: both;
@@ -180,6 +208,33 @@
     border: .1rem solid black;
     border-radius: .2rem;
     background-color: #333E58;
+}
+
+.play-copied-text {
+    margin: 0;
+    position: absolute;
+
+    top: 2.6rem;
+    left: 15.15rem;
+
+    font-size: 1rem;
+
+    color: yellowgreen;
+}
+
+.copied-fade-out {
+    animation: fade-out 1.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 100;
+    }
+    to {
+        transform: translate(0, .5rem);
+        opacity: 0;
+    }
 }
 
 .play-join-lobby-form {

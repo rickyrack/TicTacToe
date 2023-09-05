@@ -13,6 +13,7 @@ const lobbyOppDiv = document.querySelector(".play-lobby-opp");
 const lobbyOppDivText = lobbyOppDiv.querySelector("p");
 const botDiffDiv = document.querySelector(".play-bot-buttons");
 const basicButtonsDiv = document.querySelector(".play-basic");
+const lobbyCopyText = document.querySelector(".play-copied-text");
 
 // does not exist until createLobby runs
 let lobbyCopyButton;
@@ -21,6 +22,7 @@ lobbyCreateText.style.display = "none";
 lobbyJoinForm.style.display = "none";
 lobbyBackButton.style.display = "none";
 lobbyOppDiv.style.display = "none";
+lobbyCopyText.style.display = "none";
 
 lobbyCreateButton.addEventListener("click", createLobby);
 lobbyJoinButton.addEventListener("click", joinLobby);
@@ -74,6 +76,7 @@ function backLobby() {
     lobbyOppDiv.style.display = "none";
     lobbyBackButton.style.display = "none";
     basicButtonsDiv.style.display = "flex";
+    lobbyCopyText.style.display = "none";
 
     lobbyCopyButton = undefined;
 
@@ -85,9 +88,11 @@ function backLobby() {
 }
 
 function copyRoomId() {
-    lobbyOppDivText.classList.remove("lobby-loading");
+    lobbyCopyText.classList.remove("copied-fade-out");
     navigator.clipboard.writeText(lobbyCreateText.innerText.split(': ')[1].slice(0, 6));
-    lobbyOppDivText.textContent = "Copied!";
+
+    lobbyCopyText.style.display = "block";
+    lobbyCopyText.classList.add("copied-fade-out");
 }
 
 function handleSubmit(e) {

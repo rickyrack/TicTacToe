@@ -6,10 +6,12 @@
 <main class="play-main">
   <canvas id="play-canvas"></canvas>
   <div class="play-gameOver"></div>
+  <div class="play-online-message"></div>
   <div class="play-lobby-buttons">
     <p class="play-lobby-title">Play Multiplayer</p>
     <button class="play-create-lobby lobby-button">Create Lobby</button>
     <button class="play-join-lobby lobby-button">Join Lobby</button>
+    <p class="play-copied-text">Copy</p>
     <p class="play-create-lobby-text">Lobby Error</p>
     <form class="play-join-lobby-form">
       <label class="play-join-lobby-label" for="roomId">Lobby:&nbsp</label>
@@ -36,6 +38,7 @@
 <script type="module" src="/scripts/tictactoe/main.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/new_game.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/computer_diff.js"></script>
+<script type="module" src="/scripts/tictactoe/online/updateMessage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/lobby_controls.js"></script>
 <script src="/socket.io/socket.io.js"></script>
