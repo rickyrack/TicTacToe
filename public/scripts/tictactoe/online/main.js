@@ -42,38 +42,6 @@ export const runGame = (board, roomId) => {
 
     // check win on server goes here //
 
-    /*let p1Win = false;
-        let p2Win = false;
-    
-        if(mainCheck(board) === 'p1Win') p1Win = true;
-        else if(mainCheck(board) === 'p2Win') p2Win = true;
-    
-        if (p1Win) {
-          canvas.removeEventListener("click", handleClick);
-          gameActive = false;
-          gameOver("p1");
-        } else if (p2Win) {
-          canvas.removeEventListener("click", handleClick);
-          gameActive = false;
-          gameOver("p2");
-        }
-    
-        let tieGame = true;
-    
-        for (let r = 0; r < boardSize; r++) {
-          for (let c = 0; c < boardSize; c++) {
-            if (board[r][c] === "") {
-              tieGame = false;
-              break;
-            }
-          }
-        }
-    
-        if (tieGame && !p1Win && !p2Win) {
-          canvas.removeEventListener("click", handleClick);
-          gameActive = false;
-          gameOver("tie");
-        } else tieGame = false;*/
 
     // draw pieces
     for (let r = 0; r < boardSize; r++) {

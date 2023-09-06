@@ -1,6 +1,6 @@
-//checks for a win in the game function itself, separate from minimax win check
+// same as mainCheck for offline game
 
-export const mainCheck = (board) => {
+const winCheck = (board) => {
     const boardSize = board.length;
 
     let p1Check = 0;
@@ -64,3 +64,28 @@ export const mainCheck = (board) => {
     if (p1Win && p2Win) return 'p1Win';
     return p1Win ? 'p1Win' : p2Win ? 'p2Win' : false;
 }
+
+const checkWin = (board) => {
+  const boardSize = board.length;
+  if(winCheck(board) === 'p1Win') return 'p1';
+  else if(winCheck(board) === 'p2Win') return 'p2';
+
+  // check for tie after checking for player win
+  let tieGame = true;
+
+  for (let r = 0; r < boardSize; r++) {
+    for (let c = 0; c < boardSize; c++) {
+      if (board[r][c] === "") {
+        tieGame = false;
+        break;
+      }
+    }
+  }
+
+  if (tieGame) {
+    return 'tie';
+  }
+  return false;
+}
+
+module.exports = checkWin;

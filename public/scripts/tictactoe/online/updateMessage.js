@@ -3,6 +3,7 @@ const onlineMsgDiv = document.querySelector(".play-online-message");
 onlineMsgDiv.style.display = "none";
 
 export const waitForTurn = () => {
+    clearUpdateMsg();
     onlineMsgDiv.style.display = "block";
     onlineMsgDiv.innerHTML = "<p>It's not your turn!</p>"
     onlineMsgDiv.classList.add("online-msg-fade-out");

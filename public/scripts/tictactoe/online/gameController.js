@@ -1,6 +1,6 @@
 import { badRoom } from "../play_controls/lobby_controls.js";
 import { runGame } from "./main.js";
-import { waitForTurn } from "./updateMessage.js";
+import { clearUpdateMsg, waitForTurn } from "./updateMessage.js";
 import { socket } from "./main.js";
 
 // this file handles functions that have multiple effects
@@ -23,9 +23,24 @@ socket.on('badRoom', (reason) => {
 // notify player it is not their turn and run the game again
 socket.on('wrongTurn', (roomData) => {
     waitForTurn();
-    //game(roomData.board, roomData.roomId);
-})
+    //runGame(roomData.board, roomData.roomId);
+});
 
 socket.on('runGame', (roomData) => {
+    clearUpdateMsg();
     runGame(roomData.board, roomData.roomId);
-})
+
+});
+
+// end game
+socket.on('winGame', () => {
+    console.log('winner!')
+});
+
+socket.on('loseGame', () => {
+    console.log('loser!')
+});
+
+socket.on('tieGame', () => {
+    console.log('tie!')
+});

@@ -1,12 +1,16 @@
 const colors = require("colors");
 const socket = require("socket.io");
+const checkWin = require("./winCheck");
 
-const newBoard = [];
 const boardSize = 3;
 
 // init empty board
-for (let i = 0; i < boardSize; i++) {
-  newBoard.push(["", "", ""]);
+const createNewBoard = () => {
+  const newBoard = [];
+  for (let i = 0; i < boardSize; i++) {
+    newBoard.push(["", "", ""]);
+  }
+  return newBoard;
 }
 
 const matchData = new Map();
@@ -18,10 +22,6 @@ const getPiece = (player) => {
     return "o";
   }
 };
-
-const endGame = () => {
-
-}
 
 const gameSocket = (server) => {
   const io = socket(server);
@@ -54,7 +54,7 @@ const gameSocket = (server) => {
       if (room.size === 2) {
         // init game data from joining client
         matchData.set(roomData.roomId, {
-          board: [...newBoard],
+          board: createNewBoard(),
           p1: [...room][0],
           p2: [...room][1],
           currPlayer: 'p1',
@@ -74,6 +74,17 @@ const gameSocket = (server) => {
         return true;
       }
       return false;
+    }
+
+    const endGame = (roomData, winner) => {
+      if (winner === 'tie') {
+        io.to(roomData.roomId).emit('tie');
+        return;
+      }
+      const winnerId = roomData[winner];
+      const loserId = roomData[winner === 'p1' ? 'p2' : 'p1'];
+      io.to(roomData[winnerId]).emit('winGame');
+      io.to(roomData[loserId]).emit('loseGame');
     }
 
     socket.on("placePiece", (turnData) => {
@@ -98,11 +109,28 @@ const gameSocket = (server) => {
       if (roomData.currPlayer === 'p1') roomData.currPlayer = 'p2';
       else roomData.currPlayer = 'p1';
       matchData.set(roomId, roomData);
+
       io.to(roomId).emit('runGame', matchData.get(roomId));
+
+      // draw board, then check win after the last client to place a piece
+      const winner = checkWin(matchData.get(roomId).board);
+      if (winner) {
+        endGame(matchData.get(roomId), winner);
+      }
     });
 
     socket.on("disconnect", () => {
       console.log("user disconnected");
+      matchData.forEach(room => {
+        if (room.p1 === socket.id) {
+          console.log(`p2: [${room.p2}] wins game: [${room.roomId}] by forfeit.`);
+          matchData.delete(room.roomId);
+        }
+        else if (room.p2 === socket.id) {
+          console.log(`p2: [${room.p2}] wins game: [${room.roomId}] by forfeit.`);
+          matchData.delete(room.roomId);
+        }
+      })
     });
   });
 };

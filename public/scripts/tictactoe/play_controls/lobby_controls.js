@@ -1,6 +1,8 @@
 import { joinRoom } from "../online/gameController.js";
 import { handleNewGame } from "./new_game.js";
 
+const uid = new ShortUniqueId();
+
 const lobbyCreateButton = document.querySelector(".play-create-lobby");
 const lobbyJoinButton = document.querySelector(".play-join-lobby");
 const lobbyCreateText = document.querySelector(".play-create-lobby-text");
@@ -44,7 +46,6 @@ function createLobby() {
     lobbyButtonHandler();
     lobbyCreateText.style.display = "flex";
 
-    const uid = new ShortUniqueId();
     const roomId = uid();
     joinRoom(roomId, 'create');
 
@@ -98,6 +99,7 @@ function copyRoomId() {
 function handleSubmit(e) {
     e.preventDefault();
     const joinId = lobbyJoinInput.value;
+    console.log(joinId)
     joinRoom(joinId, 'join');
 }
 

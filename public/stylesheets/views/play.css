@@ -64,7 +64,7 @@
 }
 
 .online-msg-fade-out {
-    animation: online-msg-animation 5s;
+    animation: online-msg-animation 3s;
     animation-fill-mode: both;
 }
 
