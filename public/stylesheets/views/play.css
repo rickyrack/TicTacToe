@@ -171,6 +171,21 @@
     background-color: #333E58;
 }
 
+.play-online-notify {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.play-online-notify p {
+    margin: 1.8rem 0 0 0;
+
+    font-size: 1.4rem;
+
+    color: yellowgreen;
+}
+
 .play-create-lobby-text {
     display: flex;
     justify-content: center;
@@ -403,4 +418,51 @@
 .play-basic button:hover {
     cursor: pointer;
     background-color: #333E58;
+}
+
+.play-rematch-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: relative;
+    top: 9rem;
+
+    height: 90%;
+    width: 19rem;
+}
+
+.play-rematch-div button {
+    height: 3rem;
+    width: 9rem;
+
+    border: .01rem solid black;
+    border-radius: .3rem;
+    padding: 0;
+    
+    font-size: 1.4rem;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+
+    color: rgb(148, 216, 11);
+
+    background-color: #4D5D86;
+}
+
+.play-rematch-div button:hover {
+    cursor: pointer;
+    background-color: #333E58;
+}
+
+.play-rematch-wait {
+    height: 3rem;
+    width: 9rem;
+
+    margin: .9rem 0 0 0;
+    padding: 0;
+    
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    color: rgb(148, 216, 11);
 }

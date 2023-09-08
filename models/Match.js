@@ -15,13 +15,21 @@ const matchSchema = new mongoose.Schema({
         default: Date.now
     },
     lobbyId: {
-        type: Number,
+        type: String,
         requied: true
     },
     ranked: {
         type: Boolean,
         required: true
+    },
+    board: {
+        type: Array,
+        required: true
+    },
+    tie: {
+        type: Array,
+        required: true
     }
 });
 
-module.exports = mongoose.model('Match', matchSchema);
+module.exports = mongoose.model('Match', matchSchema, 'match_history');

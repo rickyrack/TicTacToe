@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -15,6 +16,11 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     loss: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    tie: {
         type: Number,
         required: true,
         default: 0

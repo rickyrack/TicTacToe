@@ -1,13 +1,11 @@
+import { socket } from "./gameController.js";
 import { clearUpdateMsg } from "./updateMessage.js";
 
-export const socket = io();
-
-export const runGame = (board, roomId) => {
+export const runGame = (board, roomId, isGameActive) => {
   const oldCanvasDiv = document.getElementById("play-canvas");
   const canvas = oldCanvasDiv.cloneNode(true);
   oldCanvasDiv.parentNode.replaceChild(canvas, oldCanvasDiv);
 
-  console.log('rungame')
   canvas.style.visibility = "visible";
   const ctx = canvas.getContext("2d");
   canvas.width = 300;
@@ -22,7 +20,8 @@ export const runGame = (board, roomId) => {
   const tileSize = 100;
   const boardSize = 3;
 
-  canvas.addEventListener("click", e => handleClick(e, board, roomId));
+  if (isGameActive)
+    canvas.addEventListener("click", (e) => handleClick(e, board, roomId));
 
   const game = () => {
     // draw board
@@ -41,7 +40,6 @@ export const runGame = (board, roomId) => {
     }
 
     // check win on server goes here //
-
 
     // draw pieces
     for (let r = 0; r < boardSize; r++) {
@@ -75,14 +73,17 @@ export const runGame = (board, roomId) => {
 };
 
 export function handleClick(e, board, roomId) {
-  console.log('click')
-  clearUpdateMsg();
   const tileSize = 100;
   const col = Math.floor(e.offsetX / tileSize);
   const row = Math.floor(e.offsetY / tileSize);
 
-  const tileClicked = board[row][col];
+  // prevents error when clicking edge of board
+  let tileClicked = null;
+  if (col !== 3 && col !== -1 && row !== 3 && row !== -1)
+    tileClicked = board[row][col];
+
   if (tileClicked === "") {
+    clearUpdateMsg();
     socket.emit("placePiece", { row, col, roomId });
   }
 }

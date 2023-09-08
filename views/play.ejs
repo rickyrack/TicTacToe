@@ -21,6 +21,9 @@
     <div class="play-lobby-back-div">
       <button class="play-lobby-back-button">Back</button>
     </div>
+    <div class="play-online-notify">
+      <p></p>
+    </div>
   </div>
   <div class="play-bot-buttons">
     <p>Computer:</p>
@@ -33,13 +36,20 @@
     <button class="play-new-game">New Game</button>
     <button class="play-howtoplay">How To Play</button>
   </div>
+  <div class="play-rematch-div">
+    <button class="play-rematch">Rematch</button>
+    <p class="play-rematch-wait"></p>
+  </div>
 </main>
+
+<div id="username" username="<%= username %>" style="display: none;"></div>
 
 <script type="module" src="/scripts/tictactoe/main.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/new_game.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/computer_diff.js"></script>
 <script type="module" src="/scripts/tictactoe/online/updateMessage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="module" src="/scripts/tictactoe/play_controls/lobby_controls.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/scripts/tictactoe/online/main.js"></script>
