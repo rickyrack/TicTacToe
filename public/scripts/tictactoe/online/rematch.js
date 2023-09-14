@@ -31,6 +31,7 @@ export const handleRematch = () => {
   endGameDiv.innerHTML = "";
 
   canvasDiv.style.visibility = "visible";
+  clearRematch();
 };
 
 export const clearRematch = () => {

@@ -19,6 +19,7 @@ router.post("/:id", async (req, res) => {
   const loserUsername =
     gameData.username === gameData.p1Name ? gameData.p2Name : gameData.p1Name;
   try {
+    let newMatch = null;
     if (gameData.tie) {
       await User.findOneAndUpdate(
         { username: gameData.p1Name },
@@ -30,9 +31,18 @@ router.post("/:id", async (req, res) => {
         { $inc: { tie: 1 } },
         { new: true }
       );
+      const match = new Match({
+        winner: gameData.username,
+        loser: loserUsername,
+        lobbyId: req.params.id,
+        ranked: false,
+        board: gameData.board,
+        tie: gameData.tie,
+      });
+  
+      newMatch = await match.save();
     } else {
       // update winner and POST completed match
-      console.log('erm')
       await User.findOneAndUpdate(
         { username: gameData.username },
         { $inc: { win: 1 } },
@@ -44,19 +54,18 @@ router.post("/:id", async (req, res) => {
         { $inc: { loss: 1 } },
         { new: true }
       );
+
+      const match = new Match({
+        winner: gameData.username,
+        loser: loserUsername,
+        lobbyId: req.params.id,
+        ranked: false,
+        board: gameData.board,
+        tie: gameData.tie,
+      });
+  
+      newMatch = await match.save();
     }
-
-    const match = new Match({
-      winner: gameData.username,
-      loser: loserUsername,
-      lobbyId: req.params.id,
-      ranked: false,
-      board: gameData.board,
-      tie: gameData.tie,
-    });
-
-    const newMatch = await match.save();
-    console.log(newMatch)
     res.status(201).json(newMatch);
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -2,7 +2,7 @@ import { joinRoom, socket } from "../online/gameController.js";
 import { clearRematch } from "../online/rematch.js";
 import { handleNewGame } from "./new_game.js";
 
-const uid = new ShortUniqueId();
+const uid = new ShortUniqueId({ length: 6 });
 const username = document.getElementById("username").getAttribute("username");
 
 const lobbyCreateButton = document.querySelector(".play-create-lobby");
@@ -56,7 +56,7 @@ function createLobby() {
     lobbyButtonHandler();
     lobbyCreateText.style.display = "flex";
 
-    const roomId = uid();
+    const roomId = uid.rnd();
     joinRoom(roomId, 'create', username);
 
     lobbyCreateText.innerHTML = 
@@ -97,8 +97,8 @@ function backLobby() {
     lobbyOppDivText.classList.remove("lobby-loading");
 
     clearRematch();
-
-    socket.emit("quitGame");
+    
+    if (socket) socket.emit("quitGame");
 
     handleNewGame(false);
 }

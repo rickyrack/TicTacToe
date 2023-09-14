@@ -16,7 +16,7 @@ const matchSchema = new mongoose.Schema({
     },
     lobbyId: {
         type: String,
-        requied: true
+        required: true
     },
     ranked: {
         type: Boolean,
@@ -27,9 +27,9 @@ const matchSchema = new mongoose.Schema({
         required: true
     },
     tie: {
-        type: Array,
+        type: Boolean,
         required: true
     }
 });
 
-module.exports = mongoose.model('Match', matchSchema, 'match_history');
+module.exports = mongoose.model('Match', matchSchema, "match_history");

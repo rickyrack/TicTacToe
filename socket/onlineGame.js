@@ -16,6 +16,7 @@ const createNewBoard = () => {
 const matchData = new Map();
 const p1UsernameData = new Map();
 const rematchReadyRooms = new Map();
+let inGame = [];
 
 // prevents rejoining rooms that were left
 const invalidRooms = [];
@@ -71,6 +72,8 @@ const gameSocket = (server) => {
           roomId: roomData.roomId,
         });
         if (roomData.action === "join") p1UsernameData.clear(roomData.roomId);
+        inGame.push(matchData.get(roomData.roomId).p1);
+        inGame.push(matchData.get(roomData.roomId).p2);
         io.to(roomData.roomId).emit(
           "runGame",
           matchData.get(roomData.roomId),
@@ -104,6 +107,7 @@ const gameSocket = (server) => {
           currPlayer: "p1",
           roomId: roomData.roomId,
         });
+        io.to(roomData.roomId).emit("setupRematch");
         io.to(matchData.get(roomData.roomId).p1).emit(
           "notifyGame",
           `Opponent: ${matchData.get(roomData.roomId).p2Name} (O)`
@@ -112,7 +116,8 @@ const gameSocket = (server) => {
           "notifyGame",
           `Opponent: ${matchData.get(roomData.roomId).p1Name} (X)`
         );
-        io.to(roomData.roomId).emit("setupRematch");
+        inGame.push(matchData.get(roomData.roomId).p1);
+        inGame.push(matchData.get(roomData.roomId).p2);
         io.to(roomData.roomId).emit(
           "runGame",
           matchData.get(roomData.roomId),
@@ -128,7 +133,7 @@ const gameSocket = (server) => {
       try {
         currPlayer = matchData.get(roomId)[matchData.get(roomId).currPlayer];
       } catch (err) {
-        console.log(`Server restart caused error: ${err.message}`);
+        console.log(`Error: ${err.message}`);
         return;
       }
       if (currPlayer === socket.id) {
@@ -138,8 +143,11 @@ const gameSocket = (server) => {
     };
 
     const endGame = (roomData, winner, userQuit) => {
+      // removes players from active players array
+      inGame = inGame.filter(id => id !== roomData.p1 && id !== roomData.p2);
+
       if (winner === "tie") {
-        rematchReadyRooms.set(roomData.roomId, { p1: roomData.p1, p2: roomData.p1, waiting: null, roomId: roomData.roomId, p1Name: roomData.p2Name, p2Name: roomData.p1Name });
+        if (socket.id === roomData.p1) rematchReadyRooms.set(roomData.roomId, { p1: roomData.p2, p2: roomData.p1, waiting: null, roomId: roomData.roomId, p1Name: roomData.p2Name, p2Name: roomData.p1Name });
         io.to(roomData.roomId).emit("tieGame", roomData);
         return;
       }
@@ -237,7 +245,7 @@ const gameSocket = (server) => {
 
     socket.on("disconnect", () => {
       console.log("user disconnected");
-      leaveMatch(socket);
+      if (inGame.includes(socket.id)) leaveMatch(socket);
     });
   });
 };

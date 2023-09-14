@@ -41,9 +41,10 @@ function initSocket(newClient) {
 
     // remove rematch button
     socket.on("setupRematch", () => {
+      clearNotify();
       handleRematch();
-      clearRematch();
-    })
+      //clearRematch(); called from handleRematch instead
+    });
 
     socket.on("runGame", (roomData, isGameActive) => {
       clearUpdateMsg();
@@ -68,18 +69,18 @@ function initSocket(newClient) {
       } catch (err) {
         console.error("Error:", err.message);
       }
-      clearNotify();
+      //clearNotify();
       gameOver("win");
     });
 
     socket.on("loseGame", async (roomData) => {
       showRematch();
-      clearNotify();
+      //clearNotify();
       gameOver("loss");
     });
 
     socket.on("tieGame", async (roomData) => {
-      clearNotify();
+      //clearNotify();
       showRematch();
       roomData.tie = true;
       try {
