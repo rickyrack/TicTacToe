@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
             username: req.body.username,
             games: 0,
             win: user.win,
-            loss: user.loss
+            loss: user.loss,
+            tie: user.tie
         });
     } catch (err) {
         res.status(500).redirect('/user/login');

@@ -9,18 +9,98 @@
 <main class="lb-main">
     <section class="lb-middle">
         <h2 class="lb-heading">Leaderboard</h2>
+        <div class="lb-header">
+            <div class="lb-options">
+                <button class="lb-type-button" id="activeOptionButton" onclick="handleOptions()"><p>Most Wins </p><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/></svg></button>    
+                <button class="lb-type-button lb-type-button-option" id="optionButton2"></button>
+                <button class="lb-type-button lb-type-button-option" id="optionButton3"></button>
+            </div>
+        </div>
+
         <ul class="lb-leaderboard">
-            <% for (let i = 0; i < 3; i++) { %>
-                <li><span class="li-number"><%- i %></span>test</li>
-            <% } %>
+            <% for (let i = 0; i < highestWinsList.length; i++) { 
+                if (highestWinsList[i].username === username) { %>
+                <li><span class="li-number lb-username"><%- i + 1 %></span><p class="lb-username"><%- highestWinsList[i].username %></p></li>
+                <% } else { %>
+                <li><span class="li-number"><%- i + 1 %></span><p><%- highestWinsList[i].username %></p></li>
+            <% }} %>
         </ul>
         <div class="lb-page-buttons">
-            <button><</button>
-            <button>></button>
+            <button><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>
+            <button><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></button>
         </div>
     </section>
-
-
 </main>
+
+<script>
+    function handleOptions() {
+        const activeOptionButton = document.getElementById("activeOptionButton");
+        const optionButton2 = document.getElementById("optionButton2");
+        const optionButton3 = document.getElementById("optionButton3");
+        const activeButtonText = activeOptionButton.querySelector("p");
+
+        activeOptionButton.removeEventListener("click", handleOptions);
+        activeOptionButton.addEventListener("click", closeMenu);
+        optionButton2.classList.remove("close-menu");
+        optionButton3.classList.remove("close-menu-2");
+        optionButton2.classList.add("options-drop");
+        optionButton3.classList.add("options-drop-2");
+
+        optionButton2.addEventListener("click", clickOption2);
+        optionButton3.addEventListener("click", clickOption3);
+
+        console.log(activeButtonText.textContent);
+        const optionsList = [
+            "Most Wins ",
+            "Most Loss ",
+            "Most Ties "
+        ];
+        const optionsAvail = optionsList.filter(option => option !== activeOptionButton.textContent);
+        optionButton2.textContent = optionsAvail[0];
+        optionButton3.textContent = optionsAvail[1];
+
+        optionButton2.style.display = "block";
+        optionButton3.style.display = "block";
+    }
+
+    function closeMenu() {
+        const activeOptionButton = document.getElementById("activeOptionButton");
+        const optionButton2 = document.getElementById("optionButton2");
+        const optionButton3 = document.getElementById("optionButton3");
+        const activeButtonText = activeOptionButton.querySelector("p");
+
+        activeOptionButton.removeEventListener("click", closeMenu);
+        activeOptionButton.addEventListener("click", handleOptions);
+        optionButton2.classList.remove("options-drop");
+        optionButton3.classList.remove("options-drop-2");
+        optionButton2.classList.add("close-menu");
+        optionButton3.classList.add("close-menu-2");
+
+        optionButton2.removeEventListener("click", clickOption2);
+        optionButton3.removeEventListener("click", clickOption3);
+    }
+
+    function clickOption2() {
+        const activeOptionButton = document.getElementById("activeOptionButton");
+        const optionButton2 = document.getElementById("optionButton2");
+        const optionButton3 = document.getElementById("optionButton3");
+        const activeButtonText = activeOptionButton.querySelector("p");
+
+        closeMenu();
+
+        activeButtonText.textContent = optionButton2.textContent;
+    }
+
+    function clickOption3() {
+        const activeOptionButton = document.getElementById("activeOptionButton");
+        const optionButton2 = document.getElementById("optionButton2");
+        const optionButton3 = document.getElementById("optionButton3");
+        const activeButtonText = activeOptionButton.querySelector("p");
+
+        closeMenu();
+
+        activeButtonText.textContent = optionButton3.textContent;
+    }
+</script>
 
 <%- include("partials/footer.ejs") %>
