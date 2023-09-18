@@ -12,16 +12,30 @@ router.get('/', async (req, res) => {
         return res.redirect('/');
     }
 
-    const highestWinsList = [...playerList];
+    let highestWinsList = [...playerList];
+    let highestLossesList = [...playerList];
+    let highestTiesList = [...playerList];
 
     // put highest winning players in order
     highestWinsList.sort((a, b) => b.win - a.win);
 
+    // put highest losing players in order
+    highestLossesList.sort((a, b) => b.loss - a.loss);
+
+    // put highest tieing players in order
+    highestTiesList.sort((a, b) => b.tie - a.tie);
+
+    // no more than 12 players visible on leaderboard
+    highestWinsList = highestWinsList.slice(0, 11);
+    highestLossesList = highestLossesList.slice(0, 11);
+    highestTiesList = highestTiesList.slice(0, 11);
+
     res.render('leaderboard', {
         title: 'Leaderboard',
         username: req.body?.username,
-        highestWinsList: highestWinsList
-        // add more options here
+        highestWinsList: highestWinsList,
+        highestLossesList: highestLossesList,
+        highestTiesList: highestTiesList
     });
 });
 

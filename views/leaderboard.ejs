@@ -16,8 +16,7 @@
                 <button class="lb-type-button lb-type-button-option" id="optionButton3"></button>
             </div>
         </div>
-
-        <ul class="lb-leaderboard">
+        <ul class="lb-leaderboard" id="lb-highWin">
             <% for (let i = 0; i < highestWinsList.length; i++) { 
                 if (highestWinsList[i].username === username) { %>
                 <li><span class="li-number lb-username"><%- i + 1 %></span><p class="lb-username"><%- highestWinsList[i].username %></p></li>
@@ -25,10 +24,26 @@
                 <li><span class="li-number"><%- i + 1 %></span><p><%- highestWinsList[i].username %></p></li>
             <% }} %>
         </ul>
-        <div class="lb-page-buttons">
+        <ul class="lb-leaderboard" id="lb-highLoss" style="display: none;">
+            <% for (let i = 0; i < highestLossesList.length; i++) { 
+                if (highestLossesList[i].username === username) { %>
+                <li><span class="li-number lb-username"><%- i + 1 %></span><p class="lb-username"><%- highestLossesList[i].username %></p></li>
+                <% } else { %>
+                <li><span class="li-number"><%- i + 1 %></span><p><%- highestLossesList[i].username %></p></li>
+            <% }} %>
+        </ul>
+        <ul class="lb-leaderboard" id="lb-highTie" style="display: none;">
+            <% for (let i = 0; i < highestTiesList.length; i++) { 
+                if (highestTiesList[i].username === username) { %>
+                <li><span class="li-number lb-username"><%- i + 1 %></span><p class="lb-username"><%- highestTiesList[i].username %></p></li>
+                <% } else { %>
+                <li><span class="li-number"><%- i + 1 %></span><p><%- highestTiesList[i].username %></p></li>
+            <% }} %>
+        </ul>
+        <!--<div class="lb-page-buttons">
             <button><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg></button>
             <button><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></button>
-        </div>
+        </div>-->
     </section>
 </main>
 
@@ -49,7 +64,6 @@
         optionButton2.addEventListener("click", clickOption2);
         optionButton3.addEventListener("click", clickOption3);
 
-        console.log(activeButtonText.textContent);
         const optionsList = [
             "Most Wins ",
             "Most Loss ",
@@ -89,6 +103,7 @@
         closeMenu();
 
         activeButtonText.textContent = optionButton2.textContent;
+        updateLeaderboard(activeButtonText.textContent);
     }
 
     function clickOption3() {
@@ -100,10 +115,30 @@
         closeMenu();
 
         activeButtonText.textContent = optionButton3.textContent;
+        updateLeaderboard(activeButtonText.textContent);
     }
 
-    function updateLeaderboard() {
+    function updateLeaderboard(type) {
         // update the leaderboard with the selected option
+        const lbHighWin = document.getElementById("lb-highWin");
+        const lbHighLoss = document.getElementById("lb-highLoss");
+        const lbHighTie = document.getElementById("lb-highTie");
+
+        if (type === "Most Wins ") {
+            lbHighLoss.style.display = "none";
+            lbHighTie.style.display = "none";
+            lbHighWin.style.display = "flex";
+        }
+        else if (type === "Most Loss ") {
+            lbHighWin.style.display = "none";
+            lbHighTie.style.display = "none";
+            lbHighLoss.style.display = "flex";
+        }
+        else if (type === "Most Ties ") {
+            lbHighWin.style.display = "none";
+            lbHighLoss.style.display = "none";
+            lbHighTie.style.display = "flex";
+        }
     }
 </script>
 
