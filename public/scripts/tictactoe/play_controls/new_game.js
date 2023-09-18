@@ -18,7 +18,7 @@ export function handleNewGame(isOnline) {
   canvasDiv.style.visibility = "visible";
 
   // prevents starting a new bot game
-  if (isOnline) {
+  if (isOnline === true) {
     canvasDiv.style.visibility = "hidden";
     return;
   }
